@@ -19,15 +19,23 @@ vulnerability assessment report, portfolio-ready.
 
 **Pace:** ~4-6 hours a week. Slower is fine — the order matters more than the speed.
 
+**Never built or worked in a multi-service backend before?** Spend a weekend on
+[Backend Architecture Fundamentals](backend-architecture/README.md) before Phase 0 — modular
+monoliths, service communication, WebSockets, data consistency. Everything from Phase 1 onward
+assumes this vocabulary.
+
 ```mermaid
 gantt
-    title The Practitioner Track — 12 Weeks
+    title The Practitioner Track — 12 Weeks (+ optional Architecture Primer)
     dateFormat YYYY-MM-DD
     axisFormat Wk %W
     todayMarker off
 
+    section Phase -1 Architecture Primer
+    Backend architecture fundamentals  :pminus1, 2024-01-01, 7d
+
     section Phase 0 Calibration
-    Calibration                        :p0, 2024-01-01, 3d
+    Calibration                        :p0, after pminus1, 3d
 
     section Phase 1 Think Like an Attacker
     Injection and XSS                  :p1a, after p0, 7d
@@ -54,6 +62,19 @@ gantt
 ```
 
 ---
+
+## Phase -1 — Architecture Primer *(optional, recommended if this is new ground)*
+
+*Skip this phase entirely if you've already built or worked in a real multi-service backend.*
+
+**Weekend: how backends are actually structured**
+
+- Read: [Backend Architecture Fundamentals](backend-architecture/README.md) — all seven short
+  files. Monoliths vs. modular monoliths vs. microservices, layered architecture, synchronous and
+  asynchronous communication, WebSockets, API gateways, data consistency.
+- Why first: almost every security concept from here on is really a question about a boundary —
+  "does this call get re-checked here," "does this service trust that one too much." That question
+  doesn't land until you've seen what a service boundary actually is.
 
 ## Phase 0 — Calibration
 

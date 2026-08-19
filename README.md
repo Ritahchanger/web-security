@@ -6,6 +6,11 @@ handshakes, and data models are drawn as Mermaid diagrams — they render native
 most Markdown viewers/editors (VS Code needs the "Markdown Preview Mermaid Support" extension).
 Read in order the first time; use as reference after.
 
+**New to how backends are actually built?** Start with
+[**Backend Architecture Fundamentals**](backend-architecture/README.md) first — modular monoliths
+vs. microservices, service communication, WebSockets, data consistency. Security concepts land a
+lot better once you know what a service boundary actually is.
+
 **Want a structured course instead of just a reference?** See
 [**The Practitioner Track**](PRACTITIONER-TRACK.md) — a 12-week plan that pairs each file below
 with real, free hands-on labs (PortSwigger Web Security Academy, OWASP Juice Shop) and ends in a
