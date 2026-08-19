@@ -85,3 +85,18 @@ posture-management scanners can catch these *before* apply, in the same CI pipel
 scans application dependencies — treating infrastructure configuration with the same rigor as
 application code, because a misconfigured resource is exploitable exactly like a code
 vulnerability is.
+
+## Further reading
+
+- [CycloneDX SBOM standard](https://cyclonedx.org/) · [SPDX SBOM standard](https://spdx.dev/)
+- [CISA — Executive Order 14028 on Improving the Nation's Cybersecurity](https://www.cisa.gov/executive-order-improving-nations-cybersecurity)
+- [CISA advisory — XZ Utils supply chain compromise (2024)](https://www.cisa.gov/news-events/alerts/2024/03/29/reported-supply-chain-compromise-affecting-xz-utils-data-compression-library)
+- [CISA — what happened in the SolarWinds supply chain attack](https://www.cisa.gov/news-events/news/what-you-need-know-about-solarwinds-supply-chain-attack)
+- [The `event-stream` npm incident — original GitHub issue thread](https://github.com/dominictarr/event-stream/issues/116)
+- [Trivy — vulnerability/misconfiguration scanner for containers, IaC, and dependencies](https://trivy.dev/)
+- [Sigstore / cosign — signing and verifying software artifacts](https://www.sigstore.dev/)
+- [Checkov — static analysis for Infrastructure-as-Code](https://www.checkov.io/)
+- [OWASP Software Component Verification Standard (SCVS)](https://owasp.org/www-project-software-component-verification-standard/)
+
+---
+**Next:** [11. Applied: This Codebase →](11-applied-to-this-codebase.md)

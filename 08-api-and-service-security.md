@@ -71,3 +71,13 @@ letting them accumulate indefinitely as a widening, unmonitored attack surface.
 - Don't expose internal IDs/implementation details unnecessarily (sequential integer IDs make
   enumeration trivial — `/orders/1001`, `/orders/1002`... — prefer UUIDs or opaque IDs where
   enumeration itself is a risk, combined with proper authorization checks regardless).
+
+## Further reading
+
+- [NIST SP 800-207 — Zero Trust Architecture](https://csrc.nist.gov/pubs/sp/800/207/final)
+- [Istio — mTLS and service mesh security concepts](https://istio.io/latest/docs/concepts/security/)
+- [RFC 6749 §4.4 — OAuth2 Client Credentials Grant](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4)
+- [OWASP API Security Top 10](https://owasp.org/www-project-api-security/)
+
+---
+**Next:** [9. REST Endpoint Security →](09-rest-endpoint-security.md)

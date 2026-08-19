@@ -141,3 +141,15 @@ environment reachable from the public internet.
 6. Errors caught centrally, generic message + correlation ID returned, full detail logged
    server-side only.
 7. Global security headers applied via middleware, not per-endpoint opt-in.
+
+## Further reading
+
+- [OWASP REST Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html)
+- [PortSwigger — CORS misconfiguration, explained with real exploit examples](https://portswigger.net/web-security/cors)
+- [OWASP Mass Assignment Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html)
+- [MDN — HTTP security response headers reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers#security)
+- [IETF — The Idempotency-Key HTTP Header Field (draft)](https://datatracker.ietf.org/doc/html/draft-ietf-httpapi-idempotency-key-header)
+- [OWASP Error Handling Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html)
+
+---
+**Next:** [10. Infrastructure & Supply Chain →](10-infrastructure-and-supply-chain.md)

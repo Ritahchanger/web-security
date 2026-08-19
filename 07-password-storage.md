@@ -83,3 +83,15 @@ Modern guidance (NIST SP 800-63B) is a real shift from older intuition:
   passwords, far more effectively than a complexity regex does.
 - **Rate limit and lock out** login attempts per account and per source IP, with exponential
   backoff, to make online brute force impractical regardless of password strength.
+
+## Further reading
+
+- [NIST SP 800-63B — Digital Identity Guidelines: Authentication & Lifecycle Management](https://pages.nist.gov/800-63-3/sp800-63b.html)
+- [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)
+- [RFC 9106 — Argon2 Memory-Hard Function](https://datatracker.ietf.org/doc/html/rfc9106)
+- [bcrypt — original USENIX paper (Provos & Mazières)](https://www.usenix.org/legacy/events/usenix99/provos/provos.pdf)
+- [Have I Been Pwned — Pwned Passwords API](https://haveibeenpwned.com/API/v3#PwnedPasswords)
+- [Password Hashing Competition (winner: Argon2)](https://www.password-hashing.net/)
+
+---
+**Next:** [8. API & Service-to-Service Security →](08-api-and-service-security.md)

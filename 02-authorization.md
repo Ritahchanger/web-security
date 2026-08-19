@@ -99,3 +99,14 @@ forgets. This is exactly the kind of gap a dedicated architecture test (checking
 action carries an explicit `[Authorize]` or `[AllowAnonymous]`) is designed to catch — see
 [11](11-applied-to-this-codebase.md) for a real example of this rule being only partially enforced
 in a production codebase.
+
+## Further reading
+
+- [Open Policy Agent (OPA) / Rego policy language](https://www.openpolicyagent.org/docs/latest/policy-language/)
+- [AWS IAM policy documentation — a real, widely-deployed ABAC/PBAC system](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
+- [Casbin — open-source access control library supporting RBAC/ABAC](https://casbin.org/)
+- [The Confused Deputy Problem — Norm Hardy's original 1988 paper](http://www.cap-lore.com/CapTheory/ConfusedDeputy.html)
+- [OWASP Access Control Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Access_Control_Cheat_Sheet.html)
+
+---
+**Next:** [3. TLS/SSL In Depth →](03-transport-security-tls.md)

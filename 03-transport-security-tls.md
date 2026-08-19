@@ -172,3 +172,18 @@ more controllable.
   application code to remember.
 - For service-to-service calls inside your own infrastructure: don't assume "internal network"
   means "trusted" — see [08](08-api-and-service-security.md).
+
+## Further reading
+
+- [RFC 8446 — TLS 1.3](https://datatracker.ietf.org/doc/html/rfc8446)
+- [RFC 7568 — Deprecating SSL 3.0](https://datatracker.ietf.org/doc/html/rfc7568)
+- [Mozilla SSL Configuration Generator](https://ssl-config.mozilla.org/) — generates a correct, current server config for nginx/Apache/etc.
+- [Qualys SSL Labs — SSL Server Test](https://www.ssllabs.com/ssltest/) — grades any public HTTPS endpoint's actual configuration
+- [Let's Encrypt — how ACME automated issuance works](https://letsencrypt.org/how-it-works/)
+- [cert-manager (Kubernetes certificate automation)](https://cert-manager.io/)
+- [HSTS Preload List submission](https://hstspreload.org/)
+- [The POODLE attack against SSLv3 (original disclosure)](https://www.openssl.org/~bodo/ssl-poodle.pdf)
+- [OWASP Transport Layer Protection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html)
+
+---
+**Next:** [4. Secrets & Key Management →](04-secrets-and-key-management.md)

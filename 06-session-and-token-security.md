@@ -108,3 +108,14 @@ a valid token byte-by-byte by measuring response time. Use a **constant-time com
 `crypto.timingSafeEqual` in Node) for anything comparing secrets, tokens, or MAC/signature values.
 This is a lower-probability, higher-sophistication attack than the others in this file, but it's a
 one-line fix with no downside, so there's no reason not to do it correctly.
+
+## Further reading
+
+- [OWASP Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html)
+- [RFC 8725 — JSON Web Token Best Current Practices](https://datatracker.ietf.org/doc/html/rfc8725)
+- [Auth0 — Refresh Token Rotation explained](https://auth0.com/docs/secure/tokens/refresh-tokens/refresh-token-rotation)
+- [OWASP JSON Web Token Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html)
+- [MDN — Using HTTP cookies (`HttpOnly`, `Secure`, `SameSite`)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
+
+---
+**Next:** [7. Password & Credential Storage →](07-password-storage.md)

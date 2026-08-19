@@ -184,3 +184,18 @@ exist," without checking "does the *currently authenticated user* actually own o
 over object `1234`." Consistently one of the most common real-world findings in penetration tests,
 because it's easy to write, easy to miss in review (the happy path — your own ID — works fine),
 and trivial to exploit (just change the number in the URL).
+
+## Further reading
+
+- [OWASP Top 10 (official project)](https://owasp.org/www-project-top-ten/)
+- [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
+- [OWASP Cross Site Scripting (XSS) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
+- [OWASP Cross-Site Request Forgery Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
+- [OWASP Server-Side Request Forgery Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)
+- [OWASP Deserialization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html)
+- [MDN — Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
+- [Microsoft — BinaryFormatter security guide (why it's being removed)](https://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide)
+- [AWS — IMDSv2 and why it exists](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html#instance-metadata-v2-how-it-works)
+
+---
+**Next:** [6. Session & Token Security →](06-session-and-token-security.md)

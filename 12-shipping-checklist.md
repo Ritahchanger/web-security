@@ -65,3 +65,7 @@ judgment step itself.
       endpoint-policy test — see [11 §11.4](11-applied-to-this-codebase.md) for a real example),
       does the new code actually get covered by it, or does it slip through the same kind of gap
       that test exists to catch?
+
+---
+**Next:** you've reached the end of the curriculum — back to [the index](README.md), or revisit
+[11. Applied: This Codebase](11-applied-to-this-codebase.md) to see it all land on real code.

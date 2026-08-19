@@ -105,3 +105,14 @@ and source access all in one place:
 
 **A secret that's hard to rotate is a design bug, discovered at the worst possible time.** Build
 the rotation path before you need it, not while you're firefighting a leak.
+
+## Further reading
+
+- [HashiCorp Vault documentation](https://developer.hashicorp.com/vault/docs)
+- [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) · [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault) · [GCP Secret Manager](https://cloud.google.com/secret-manager)
+- [AWS KMS — envelope encryption concepts](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#enveloping)
+- [OWASP Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html)
+- [GitHub Actions security hardening (secrets in CI/CD, `pull_request_target` risks)](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions)
+
+---
+**Next:** [5. Secure Coding & the OWASP Top 10 →](05-secure-coding-owasp.md)

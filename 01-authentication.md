@@ -178,6 +178,77 @@ makes SHA-256 useful here: easy to check a match, computationally infeasible to 
 originally built for public clients that can't hold a secret (mobile apps, SPAs) but is now
 recommended for confidential clients too, as defense-in-depth.
 
+### Real-world example — pure OAuth2, no login involved: linking Strava to MyFitnessPal
+
+This is the case OAuth2 was actually built for: two apps you *already have separate accounts on*,
+sharing data between them without a password ever changing hands.
+
+```mermaid
+sequenceDiagram
+    participant U as You
+    participant MFP as MyFitnessPal
+    participant S as Strava
+
+    U->>MFP: click "Connect to Strava"
+    MFP->>U: redirect to strava.com
+    U->>S: (already logged into Strava, or logs in now — on Strava's own domain)
+    S->>U: "MyFitnessPal wants to view your activity data. Authorize?"
+    U->>S: Authorize
+    S-->>MFP: redirect back with authorization code
+    MFP->>S: exchange code for a token
+    S-->>MFP: access_token (scope: activity:read_all)
+    Note over MFP: MyFitnessPal did NOT create a new account here —<br/>you already had one. This token only unlocks<br/>Strava's activity API, nothing else.
+    loop every time you finish a run
+        MFP->>S: GET /activities (Authorization: Bearer access_token)
+        S-->>MFP: your workout data
+    end
+```
+
+**Why this is OAuth2 and not OIDC:** there's no login happening — you already had a MyFitnessPal
+account before this flow ever started. This is pure **delegated access**: you're authorizing one
+app to pull a specific slice of your data from another app's API. The access token is a "valet
+key" — it opens the trunk (your activity history) but can't start the car (change your password,
+read your private messages, delete your account). Revoking it (from Strava's own settings page) is
+instant and doesn't touch your Strava password at all.
+
+### Real-world example — the exact moment your password gets involved
+
+A common misconception is that the third-party app somehow sees your password during this
+handshake, or that clicking "Allow" on the notification *is* the password check. It isn't — here's
+what actually happens if an app asks to import your LinkedIn profile:
+
+```mermaid
+sequenceDiagram
+    participant U as You
+    participant App as Third-party app
+    participant LI as linkedin.com
+
+    U->>App: click "Import LinkedIn profile"
+    App->>U: redirect — browser address bar now shows linkedin.com
+    alt already logged into LinkedIn
+        LI->>U: "App X wants to access your profile data. Allow?"
+        Note over U,LI: no password typed at all — the existing LinkedIn session covers it
+    else not logged in
+        U->>LI: types password directly into linkedin.com's own page
+        Note over App: the app is not present in this step in any way —<br/>it cannot see the page, the password field, or what you type
+        LI->>U: "App X wants to access your profile data. Allow?"
+    end
+    U->>LI: Allow
+    LI-->>App: authorization code -> exchanged for an access_token
+    Note over App: App now holds a token scoped to "read profile data."<br/>It has never held, seen, or stored your LinkedIn password.
+```
+
+**Why this matters for real:** because the password field only ever exists on `linkedin.com`'s own
+page, a breach of the third-party app the next day cannot expose your LinkedIn credentials — the
+app never had them to begin with, only a scoped, individually-revocable token. This is the entire
+security argument for OAuth2 over the old "just give us your password so we can log in and scrape
+your data for you" pattern that predates it (and that some legacy integrations still use, insecurely).
+
+This is also the general pattern behind almost every "import your data" feature you've used —
+importing Google Contacts, linking a bank account via Plaid, pulling in Instagram photos for a
+portfolio site, syncing a calendar. All of it is the same OAuth2 delegated-access dance, just
+pointed at a different API.
+
 ## 1.5 OpenID Connect (OIDC) — authentication built on top of OAuth2
 
 OIDC adds exactly what OAuth2 is missing: a standardized **ID token** (a JWT) that asserts identity
@@ -189,6 +260,60 @@ still separate and is for calling APIs, not for proving identity to your own bac
 are opaque-by-design in many providers and aren't guaranteed to contain or even relate to user
 identity claims — always use the ID token for "who is this," the access token for "what can this
 call do."
+
+### Real-world example — OIDC: "Sign in with Google" on Spotify
+
+Same redirect dance as the OAuth2 examples above, but this time the entire point is answering "who
+is this," and Spotify *is* creating/logging into an account as a direct result.
+
+```mermaid
+sequenceDiagram
+    participant U as You
+    participant App as Spotify
+    participant G as Google
+
+    U->>App: click "Sign in with Google"
+    App->>U: redirect to Google — request scope = openid email profile
+    U->>G: log in (password or biometrics, on Google's own page — Spotify never sees it)
+    G->>U: "Share your name and email with Spotify?"
+    U->>G: Allow
+    G-->>App: redirect back with authorization code
+    App->>G: exchange code for tokens
+    G-->>App: access_token + id_token (signed JWT)
+    App->>App: verify id_token signature, read sub/email/name
+    App->>App: find or create a Spotify account for this Google sub
+    App-->>U: "Welcome, Alex" — logged in
+```
+
+Spotify reads the verified `email` and the stable `sub` (subject ID) straight out of the signed
+`id_token` and immediately knows who you are — no separate API call needed, no ambiguity about
+whether the token even relates to a real identity. That's the entire value OIDC adds on top of the
+identical OAuth2 machinery: a purpose-built, signed, standardized answer to "who is this."
+
+### What "standardizes login and SSO across web and mobile" actually means in practice
+
+- **Standardizes login:** before OIDC, Google, Facebook, and Microsoft each bolted identity onto
+  OAuth2 in their own incompatible way — "Log in with Facebook" and "Log in with Google" needed
+  genuinely separate integration code. OIDC fixed this by standardizing three things: the token
+  format (always a JWT), the claim names (`email`, `given_name`, `sub`, etc. mean the same thing
+  everywhere), and the verification rules (check the signature, `iss`, `aud`, exactly the same way
+  regardless of provider). One OIDC library now covers nearly every provider.
+- **Enables SSO (Single Sign-On):** log into your company's identity provider (Okta, Entra ID) once
+  in the morning; it keeps a session open centrally. Every internal app you open that day (HR
+  portal, expense tool, email) silently asks that same identity provider "is this user already
+  logged in?", gets back a fresh `id_token` for *that specific app*, and logs you in without asking
+  for a password again. You authenticated once; every app trusts the same central proof.
+- **Works the same across web and mobile:** OIDC's tokens are plain JSON, unlike SAML's XML — which
+  is why the exact same protocol runs cleanly in a browser, a native iOS/Android app, or a smart-TV
+  app, without the heavyweight XML tooling SAML needs.
+
+### Which protocol actually fires, by scenario
+
+| What the app is doing | Protocol | What's issued |
+|---|---|---|
+| "Create an account using Google" | OIDC | `id_token` (name, email, stable user ID) |
+| "Import your Google Contacts" | OAuth2 only | `access_token` scoped to the Contacts API |
+| "Log in and sync your Google Calendar" | OIDC **+** OAuth2 | both — `id_token` to log you in, `access_token` to read/write Calendar |
 
 ## 1.6 SAML
 
@@ -293,3 +418,18 @@ rate-limiting the number of prompts.
 | API key | possession of a static secret | only via manual rotation | no | server-to-server, non-human callers only |
 | mTLS client cert | possession of private key | yes (CRL/OCSP) | yes | **service-to-service, zero-trust internal** |
 | WebAuthn/passkey | possession of private key | yes (remove credential) | **yes** | **human login — the best available option today** |
+
+## Further reading
+
+- [RFC 6749 — The OAuth 2.0 Authorization Framework](https://datatracker.ietf.org/doc/html/rfc6749)
+- [RFC 7636 — PKCE](https://datatracker.ietf.org/doc/html/rfc7636)
+- [OpenID Connect Core 1.0 spec](https://openid.net/specs/openid-connect-core-1_0.html)
+- [OAuth 2.0 Security Best Current Practice (RFC 9700, deprecates Implicit flow)](https://datatracker.ietf.org/doc/html/rfc9700)
+- [RFC 6238 — TOTP (Time-Based One-Time Password)](https://datatracker.ietf.org/doc/html/rfc6238)
+- [WebAuthn Level 3 spec (W3C)](https://www.w3.org/TR/webauthn-3/) and [webauthn.io](https://webauthn.io/) for a live, working demo
+- [SAML XML Signature Wrapping attacks — Somorovsky et al., USENIX Security 2012](https://www.usenix.org/legacy/event/sec12/tech/full_papers/Somorovsky.pdf)
+- [Critical vulnerabilities in JSON Web Token libraries (`alg:none`, algorithm confusion)](https://auth0.com/blog/critical-vulnerabilities-in-json-web-token-libraries/)
+- [Have I Been Pwned — Pwned Passwords API (k-anonymity model)](https://haveibeenpwned.com/API/v3#PwnedPasswords)
+
+---
+**Next:** [2. Authorization →](02-authorization.md)
