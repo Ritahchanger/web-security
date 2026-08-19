@@ -19,6 +19,40 @@ vulnerability assessment report, portfolio-ready.
 
 **Pace:** ~4-6 hours a week. Slower is fine — the order matters more than the speed.
 
+```mermaid
+gantt
+    title The Practitioner Track — 12 Weeks
+    dateFormat YYYY-MM-DD
+    axisFormat Wk %W
+    todayMarker off
+
+    section Phase 0 Calibration
+    Calibration                        :p0, 2024-01-01, 3d
+
+    section Phase 1 Think Like an Attacker
+    Injection and XSS                  :p1a, after p0, 7d
+    Forged requests and SSRF           :p1b, after p1a, 7d
+    Rest of the OWASP Top 10           :p1c, after p1b, 7d
+
+    section Phase 2 Identity Access and Trust
+    Authentication                     :p2a, after p1c, 7d
+    Authorization and sessions         :p2b, after p2a, 7d
+
+    section Phase 3 Wire and Secrets
+    TLS and secrets management         :p3, after p2b, 7d
+
+    section Phase 4 The Perimeter
+    APIs and REST endpoints            :p4, after p3, 7d
+
+    section Phase 5 Delivery Pipeline
+    Dependencies and supply chain      :p5, after p4, 7d
+
+    section Phase 6 Prove It
+    Assessment report (capstone)       :crit, p6a, after p5, 14d
+    Publish the portfolio              :p6b, after p6a, 7d
+    Choose what is next                :p6c, after p6b, 7d
+```
+
 ---
 
 ## Phase 0 — Calibration
