@@ -37,7 +37,7 @@ only when you have a genuine cross-cutting rule RBAC can't express cleanly (time
 restrictions, resource-attribute matching at scale) — introducing a policy language for its own
 sake adds real complexity cost for a system that may never need that expressiveness.
 
-This is the model we found in iNXG-backend's Security module: `SEC.User → UserRole → Role →
+This is the model we found in the reference codebase's Security module: `SEC.User → UserRole → Role →
 RolePermission → Permission`, resolved fresh at session-lookup time — see
 [11 - Applied](11-applied-to-this-codebase.md) for the exact tables and code.
 

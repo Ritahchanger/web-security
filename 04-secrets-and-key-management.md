@@ -12,10 +12,10 @@ readable.
   remove it — it's still in the repo's history, retrievable by anyone with clone access, forever,
   unless you rewrite history (which is disruptive and easy to get wrong) and rotate the secret
   anyway (which you should do regardless — assume a committed secret is burned).
-  - Verified in this project: `iNXG-frontend`'s own architecture notes call out that
+  - Verified in this project: the reference codebase's own architecture notes call out that
     `Host/IOM.Host.Api/appsettings.Development.json` is gitignored specifically so the auth
-    password (`IOM!26?root**`) documented for local dev never lands in source control — that's the
-    right instinct, applied consistently.
+    password documented for local dev never lands in source control — that's the right instinct,
+    applied consistently.
 - **CI logs, error messages, and crash dumps leak secrets that are in environment variables** if
   the code (or a dependency) ever logs `process.env`/`Environment.GetEnvironmentVariables()` for
   debugging and forgets to redact it. An env var is safer than a hardcoded string, but it is not a
