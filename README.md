@@ -57,3 +57,7 @@ specific client codebase — it's gitignored and not included in this repo.)*
   harder to phish.
 - Nothing here is exhaustive-for-its-own-sake. Every section exists because it maps to a real,
   common way software gets broken.
+
+---
+
+Maintained by [@Ritahchanger](https://github.com/Ritahchanger).
